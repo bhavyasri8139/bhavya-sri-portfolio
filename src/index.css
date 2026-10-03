@@ -1,0 +1,460 @@
+@import "tailwindcss";
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #020617;
+  color: white;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: white;
+}
+
+
+/* =========================================
+   KEYFRAME ANIMATIONS
+========================================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes slowFloat {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(20px, -20px);
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+
+/* =========================================
+   GENERAL ANIMATION CLASSES
+========================================= */
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out both;
+}
+
+.animate-floating {
+  animation: floating 4s ease-in-out infinite;
+}
+
+.animate-slow-float {
+  animation: slowFloat 8s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientMove 6s ease infinite;
+}
+
+
+/* =========================================
+   ANIMATION DELAYS
+========================================= */
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+.delay-600 {
+  animation-delay: 0.6s;
+}
+
+
+/* =========================================
+   GRADIENT TEXT
+========================================= */
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    #a78bfa,
+    #c084fc,
+    #e879f9,
+    #a78bfa
+  );
+
+  background-size: 200% auto;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientMove 5s ease infinite;
+}
+
+
+/* =========================================
+   ANIMATED BACKGROUND
+========================================= */
+
+.animated-background {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-background::before {
+  content: "";
+
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  top: -200px;
+  left: -150px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.12);
+
+  filter: blur(100px);
+
+  animation: slowFloat 8s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+.animated-background::after {
+  content: "";
+
+  position: absolute;
+
+  width: 400px;
+  height: 400px;
+
+  right: -150px;
+  bottom: -200px;
+
+  border-radius: 50%;
+
+  background: rgba(192, 132, 252, 0.1);
+
+  filter: blur(100px);
+
+  animation: slowFloat 10s ease-in-out infinite reverse;
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   PROFILE PHOTO
+========================================= */
+
+/* =========================================
+   PROFILE PHOTO - FINAL VERSION
+========================================= */
+
+.profile-wrapper {
+  position: relative;
+  width: 340px;
+  height: 340px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  isolation: isolate;
+
+  animation: profileFloat 4s ease-in-out infinite;
+}
+
+
+/* Glow behind everything */
+.profile-glow {
+  position: absolute;
+  inset: -15px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.35);
+
+  filter: blur(45px);
+
+  animation: profileGlow 4s ease-in-out infinite;
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+/* Rotating ring */
+.profile-ring {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    from 0deg,
+    #8b5cf6,
+    #c084fc,
+    #e879f9,
+    #8b5cf6
+  );
+
+  animation: profileRotate 6s linear infinite;
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+/* Dark center of ring */
+.profile-ring::after {
+  content: "";
+
+  position: absolute;
+  inset: 5px;
+
+  border-radius: 50%;
+
+  background: #020617;
+
+  z-index: 1;
+}
+
+
+/* =========================================
+   PHOTO - ALWAYS ABOVE RING
+========================================= */
+
+.profile-photo {
+  position: absolute;
+
+  inset: 7%;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+
+  background: #0f172a;
+
+  border: 4px solid #020617;
+
+  z-index: 10;
+
+  box-shadow:
+    0 0 30px rgba(139, 92, 246, 0.35),
+    0 20px 50px rgba(0, 0, 0, 0.5);
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+
+/* ACTUAL IMAGE */
+.profile-photo img {
+  position: absolute;
+
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: cover;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  z-index: 20;
+
+  transition: transform 0.6s ease;
+}
+
+
+/* Hover */
+.profile-wrapper:hover .profile-photo {
+  transform: scale(1.04);
+
+  box-shadow:
+    0 0 50px rgba(139, 92, 246, 0.55),
+    0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+
+.profile-wrapper:hover .profile-photo img {
+  transform: scale(1.08);
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes profileFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+
+@keyframes profileRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes profileGlow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 640px) {
+  .profile-wrapper {
+    width: 260px;
+    height: 260px;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
+  }
+}
